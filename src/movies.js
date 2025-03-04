@@ -14,23 +14,25 @@ Entonces, las dos funciones están conectadas, porque getAllDirectors usa map() 
 Lo que ocurre aquí es que map() actúa como una función dentro de otra función. Es decir, getAllDirectors es la función principal y map() es la función que ayuda a realizar el trabajo específico dentro de esa función.
 */
 
-//Primero declaras la función 
+// Primero declaras la función
 function getAllDirectors(moviesArray) {
-    if (moviesArray.length === 0) {  // comprobamos que array no esta vacio
-      return []; // si esta vacio, retorna array vacio, evitando errores de sistema
+    if (moviesArray.length === 0) {  // Comprobamos que el array no está vacío
+      return []; // Si está vacío, retorna un array vacío, evitando errores de sistema
     }
 
-    //el metodo map transforma el array de la funcion anterior,recorriendo cada elemento (representado x movie) y extrayendo la propiedad .director de cada objeto
+    // El método map transforma el array de la función anterior, recorriendo cada elemento (representado por movie) y extrayendo la propiedad .director de cada objeto
     const directors = moviesArray.map(movie => movie.director);
-    return directors;  // Devuelve el resultado con array que contiene solo directores para que se pueda usar en el futuro.
-  }
-  
-  /*Después, puedes llamar a la función con el array movies. Como no necesitamos reutilizar el dato en otro lugar del codigo, podemos vincular el 
-  resultado a la misma variable del map* (ya que map crear una lista nueva con los datos que selecionamos)*/
 
-  const directors = getAllDirectors(movies);
-  
-  console.log(directors);  // Para ver los directores en la consola.
+    // Usamos un Set para eliminar los duplicados y convertimos el Set de nuevo a un array
+    const uniqueDirectors = [...new Set(directors)];
+
+    return uniqueDirectors;  // Devuelve el resultado con el array de directores únicos
+}
+
+// Después, puedes llamar a la función con el array movies
+const directors = getAllDirectors(movies);
+
+console.log(directors);  // Para ver los directores únicos en la consola
 
 
 // Iteration 2: Steven Spielberg. The best? - How many drama movies did STEVEN SPIELBERG direct?
